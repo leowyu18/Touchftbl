@@ -30,7 +30,7 @@ while task.wait(0.05) do
 	-- move to goal for 3 seconds
 	local start = os.clock()
 	while ball.Parent and os.clock() - start < 10 do
-		ball.CFrame = CFrame.new(GOAL_POSITION) - Vector3.new(0, 3, 0) + Vector3.new(math.random(0, 1), math.random(0, 1), math.random(0, 1))
+		ball.CFrame = CFrame.new(GOAL_POSITION) - Vector3.new(0, 3, 0) + Vector3.new(math.random(0, 5), math.random(0, 1), math.random(0, 5))
 		task.wait(0.01)
 	end
 
