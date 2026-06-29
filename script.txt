@@ -24,16 +24,15 @@ while true do
 
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
-	local touched = false
 	local connection
-
 	connection = ball.Touched:Connect(function(hit)
-		touched = true
-		connection:Disconnect()
+		if not hit:IsDescendantOf(character) then
+			return
+		end
 
+		connection:Disconnect()
 		Gotogoal(3, ball)
 	end)
 
-	-- Wait until the ball is removed (goal scored) before looking for the next one
 	ball.AncestryChanged:Wait()
 end
