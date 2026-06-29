@@ -10,6 +10,7 @@ local GOAL_POSITION = TEAM == 1
 	or Vector3.new(-110.238, 6.30647, 92.0445)
 
 while task.wait(0.05) do
+	local field = game.Workspace:WaitForChild("FootballField")
 
 	local ball = field:WaitForChild("SoccerBall")
 	if not ball then
