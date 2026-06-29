@@ -1,11 +1,21 @@
+-- TOUCH FOOTBALL SCRIPT(AUTO FARM GOALS, AUTO TELEPORT)
+
 local field = game.Workspace.FootballField
 local player = game.Workspace.Btthere
 
-local TEAM1 = Vector3.new(-319.546, 6.30647, 91.892)
-local TEAM2 = Vector3.new(-110.238, 6.30647, 92.0445)
+local TEAM = 1 -- YOUR TEAM
+local POSITION = ""
 
 while true do
 	local ball = field:WaitForChild("SoccerBall")
+
+	if TEAM == 1 then
+		POSITION = Vector3.new(-319.546, 6.30647, 91.892)
+	elseif TEAM == 2 then
+		POSITION == Vector3.new(-110.238, 6.30647, 92.0445)
+	else
+		return end
+	end
 
 	local hrp = player:FindFirstChild("HumanoidRootPart")
 	if hrp then
