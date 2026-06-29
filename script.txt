@@ -1,6 +1,7 @@
+print(22)
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
-
+print(1221)
 local LocalPlayer = Players.LocalPlayer
 
 local TEAM = 1 -- 1 or 2
