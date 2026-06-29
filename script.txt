@@ -10,23 +10,21 @@ local GOAL_POSITION = TEAM == 1
 	or Vector3.new(-110.238, 6.30647, 92.0445)
 
 while task.wait(0.05) do
-	local field = game.Workspace:WaitForChild("FootballField")
-
+	local field = Workspace:WaitForChild("FootballField")
 	local ball = field:WaitForChild("SoccerBall")
 
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-	local hrp = character:FindFirstChild("HumanoidRootPart") or character:WaitForChild("HumanoidRootPart")
-	local Humanoid = Character:WaitForChild("Humanoid")
+	local hrp = character:WaitForChild("HumanoidRootPart")
+	local humanoid = character:WaitForChild("Humanoid")
+
+	humanoid:MoveTo(GOAL_POSITION)
 
 	local start = os.clock()
-	Humanoid:MoveTo(GOAL_POSITION)
 	while ball.Parent and os.clock() - start < 30 do
 		ball.CFrame = hrp.CFrame
 		task.wait(0.01)
 	end
-	task.wait(0.05)
 
-	-- wait until this ball is gone before looking for the next one
 	while ball.Parent do
 		task.wait(0.05)
 	end
