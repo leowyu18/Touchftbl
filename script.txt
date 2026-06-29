@@ -19,7 +19,7 @@ while task.wait(0.05) do
 	local Humanoid = Character:WaitForChild("Humanoid")
 
 	local start = os.clock()
-	Humanoid:MoveTo(POSITION)
+	Humanoid:MoveTo(GOAL_POSITION)
 	while ball.Parent and os.clock() - start < 30 do
 		ball.CFrame = hrp.CFrame
 		task.wait(0.01)
