@@ -8,28 +8,29 @@ local TEAM = 1 -- 1 or 2
 local GOAL_POSITION = TEAM == 1
 	and Vector3.new(-319.546, 6.30647, 91.892)
 	or Vector3.new(-110.238, 6.30647, 92.0445)
-
+print(1)
 while true do
 	local field = Workspace:WaitForChild("FootballField")
 	local ball = field:WaitForChild("SoccerBall")
 
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 	local hrp = character:WaitForChild("HumanoidRootPart")
-
+	print(2)
 	-- Move the ball to your body ONCE
 	ball.Position = hrp.Position
 
 	task.wait()
-
+	print(3)
 	-- Then keep it at the goal briefly
 	local start = os.clock()
 	while ball.Parent and os.clock() - start < 1 do
 		ball.Position = GOAL_POSITION
 		task.wait(0.01)
 	end
-
+	print(4)
 	-- Wait for this ball to disappear before handling the next one
 	repeat
 		task.wait(0.05)
 	until not ball.Parent
+	print(5)
 end
