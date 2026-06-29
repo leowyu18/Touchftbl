@@ -7,7 +7,7 @@ local TEAM = 1 -- 1 or 2
 
 local GOAL_POSITION = TEAM == 1
 	and Vector3.new(-319.546, 6.30647, 91.892)
-	or Vector3.new(-110.238, 6.30647, 92.0445)
+	or Vector3.new(-108.238, 6.30647, 92.0445)
 
 while task.wait(0.05) do
 	local field = Workspace:WaitForChild("FootballField")
