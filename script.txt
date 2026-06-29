@@ -1,0 +1,21 @@
+local field = game.Workspace.FootballField
+local player = game.Workspace.Btthere
+
+local TEAM1 = Vector3.new(-319.546, 6.30647, 91.892)
+local TEAM2 = Vector3.new(-110.238, 6.30647, 92.0445)
+
+while true do
+	local ball = field:WaitForChild("SoccerBall")
+
+	local hrp = player:FindFirstChild("HumanoidRootPart")
+	if hrp then
+		hrp.CFrame = CFrame.new(TEAM1) -- Change to TEAM2 if you want the other side
+	end
+
+	while ball.Parent do
+		if hrp and hrp.Parent then
+			ball.Position = hrp.Position
+		end
+		task.wait(0.1)
+	end
+end
