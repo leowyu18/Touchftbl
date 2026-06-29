@@ -9,15 +9,6 @@ local GOAL_POSITION = TEAM == 1
 	and Vector3.new(-319.546, 6.30647, 91.892)
 	or Vector3.new(-110.238, 6.30647, 92.0445)
 
-local function Gotogoal(time, ball)
-	local start = os.clock()
-
-	while os.clock() - start < time and ball and ball.Parent do
-		ball.Position = GOAL_POSITION
-		task.wait(0.01)
-	end
-end
-
 while true do
 	local field = Workspace:WaitForChild("FootballField")
 	local ball = field:WaitForChild("SoccerBall")
@@ -31,8 +22,14 @@ while true do
 		end
 
 		connection:Disconnect()
-		Gotogoal(3, ball)
+
+		local start = os.clock()
+		while os.clock() - start < 1 and ball.Parent do
+			ball.Position = GOAL_POSITION
+			task.wait(0.01)
+		end
 	end)
 
+	-- Wait until the current ball is removed before handling the next one
 	ball.AncestryChanged:Wait()
 end
