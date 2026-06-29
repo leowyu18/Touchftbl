@@ -11,7 +11,7 @@ local GOAL_POSITION = TEAM == 1
 
 while task.wait(0.05) do
 
-	local ball = field:FindFirstChild("SoccerBall")
+	local ball = field:WaitForChild("SoccerBall")
 	if not ball then
 		continue
 	end
