@@ -8,41 +8,34 @@ local TEAM = 1 -- 1 or 2
 local GOAL_POSITION = TEAM == 1
 	and Vector3.new(-319.546, 6.30647, 91.892)
 	or Vector3.new(-110.238, 6.30647, 92.0445)
-print(1)
 
-local function BallToHp(ball, time)
-	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-	local hrp = character:WaitForChild("HumanoidRootPart")
-
-	local start = os.clock()
-	while os.clock() - start < time and ball.Parent do
-		ball.Position = hrp.Position
-		task.wait(0.01)
+while task.wait(0.05) do
+	local field = Workspace:FindFirstChild("FootballField")
+	if not field then
+		continue
 	end
-end
-	
-while true do
-	local field = Workspace:WaitForChild("FootballField")
-	local ball = field:WaitForChild("SoccerBall")
+
+	local ball = field:FindFirstChild("SoccerBall")
+	if not ball then
+		continue
+	end
 
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-	local hrp = character:WaitForChild("HumanoidRootPart")
-	print(2)
-	-- Move the ball to your body ONCE
-	BallToHp(ball, 2)
+	local hrp = character:FindFirstChild("HumanoidRootPart") or character:WaitForChild("HumanoidRootPart")
 
-	task.wait()
-	print(3)
-	-- Then keep it at the goal briefly
+	-- touch once
+	ball.CFrame = hrp.CFrame
+	task.wait(0.05)
+
+	-- move to goal for 3 seconds
 	local start = os.clock()
-	while ball.Parent and os.clock() - start < 1 do
-		ball.Position = GOAL_POSITION
+	while ball.Parent and os.clock() - start < 3 do
+		ball.CFrame = CFrame.new(GOAL_POSITION)
 		task.wait(0.01)
 	end
-	print(4)
-	-- Wait for this ball to disappear before handling the next one
-	repeat
+
+	-- wait until this ball is gone before looking for the next one
+	while ball.Parent do
 		task.wait(0.05)
-	until not ball.Parent
-	print(5)
+	end
 end
