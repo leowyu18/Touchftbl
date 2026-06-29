@@ -14,22 +14,25 @@ while true do
 	local ball = field:WaitForChild("SoccerBall")
 
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+	local hrp = character:WaitForChild("HumanoidRootPart")
 
-	local connection
-	connection = ball.Touched:Connect(function(hit)
-		if not hit:IsDescendantOf(character) then
-			return
-		end
+	-- Wait until the ball is close enough to your character
+	repeat
+		task.wait(0.01)
+	until not ball.Parent or (ball.Position - hrp.Position).Magnitude <= 4
 
-		connection:Disconnect()
-
+	if ball.Parent then
 		local start = os.clock()
+
+		-- Keep the ball at the goal for 1 second
 		while os.clock() - start < 1 and ball.Parent do
 			ball.Position = GOAL_POSITION
 			task.wait(0.01)
 		end
-	end)
+	end
 
-	-- Wait until the current ball is removed before handling the next one
-	ball.AncestryChanged:Wait()
+	-- Wait for the current ball to disappear before handling the next one
+	repeat
+		task.wait(0.05)
+	until not ball.Parent
 end
