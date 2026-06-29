@@ -1,31 +1,34 @@
--- TOUCH FOOTBALL SCRIPT (AUTO FARM GOALS, AUTO TELEPORT)
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
 
-local field = game.Workspace.FootballField
-local player = game.Workspace.Btthere
+local LocalPlayer = Players.LocalPlayer
 
-local TEAM = 1 -- YOUR TEAM
-local POSITION
+local TEAM = 1
+
+local GOAL_POSITION = TEAM == 1
+    and Vector3.new(-319.546, 6.30647, 91.892)
+    or Vector3.new(-110.238, 6.30647, 92.0445)
 
 while true do
-	local ball = field:WaitForChild("SoccerBall")
+    local field = Workspace:WaitForChild("FootballField")
+    local ball = field:WaitForChild("SoccerBall")
 
-	if TEAM == 1 then
-		POSITION = Vector3.new(-319.546, 6.30647, 91.892)
-	elseif TEAM == 2 then
-		POSITION = Vector3.new(-110.238, 6.30647, 92.0445)
-	else
-		return
-	end
+    local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local hrp = character:WaitForChild("HumanoidRootPart")
 
-	local hrp = player:FindFirstChild("HumanoidRootPart")
-	if hrp then
-		hrp.CFrame = CFrame.new(POSITION)
-	end
+    -- Wait until the ball touches your character naturally
+    repeat
+        if not ball.Parent then
+            break
+        end
 
-	while ball.Parent do
-		if hrp and hrp.Parent then
-			ball.Position = hrp.Position
-		end
-		task.wait(0.1)
-	end
+        ball.Position = hrp.Position
+        task.wait()
+    until (ball.Position - hrp.Position).Magnitude < 3
+
+    -- Move the ball to the goal
+    while ball.Parent do
+        ball.Position = GOAL_POSITION
+        task.wait()
+    end
 end
