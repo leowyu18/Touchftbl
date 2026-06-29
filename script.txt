@@ -16,10 +16,13 @@ while true do
 	local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 	local hrp = character:WaitForChild("HumanoidRootPart")
 
+	print("aas")
 	-- Wait until the ball is close enough to your character
 	repeat
 		task.wait(0.01)
 	until not ball.Parent or (ball.Position - hrp.Position).Magnitude <= 4
+
+	print(2)
 
 	if ball.Parent then
 		local start = os.clock()
@@ -27,6 +30,7 @@ while true do
 		-- Keep the ball at the goal for 1 second
 		while os.clock() - start < 1 and ball.Parent do
 			ball.Position = GOAL_POSITION
+			print(3)
 			task.wait(0.01)
 		end
 	end
@@ -34,5 +38,6 @@ while true do
 	-- Wait for the current ball to disappear before handling the next one
 	repeat
 		task.wait(0.05)
+		print(0242)
 	until not ball.Parent
 end
